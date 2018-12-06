@@ -1,0 +1,7 @@
+Subject: ${script_name}
+
+IP update succesfully completed
+
+----------- IP changed -----------
+Last ip: ${last_ip}
+Current ip: ${current_ip}

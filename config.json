@@ -1,6 +1,12 @@
 {
-  "email": "",
-  "zones": "",
-  "api_key": "",
-  "record": ""
+  "cloudflare" : {
+    "email": "",
+    "zones": "",
+    "api_key": "",
+    "record": ""
+  },
+  "mail" : {
+    "to": "",
+    "subject": ""
+  }
 }
