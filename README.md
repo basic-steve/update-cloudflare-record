@@ -51,7 +51,7 @@ If __ssmtp__ isn't configured yet, you need to find the working config for your 
 In config.json you need to put the receiver and the preferred subject you want.
 Any modification at the mail body can be done on [mail_template](https://github.com/CatMonster/update-cloudflare-record/blob/master/mail_template) file.
 #### Running periodically
-Personally for home use I sat a cron running every minute, it's pretty safe because Cloudflare api can be called 1200 times in 5 minutes, for [ipfy.org](https://www.ipify.org/) you can do "millions of requests per minute" as they say; keep that in mind if you are planning to conquest the galaxy.
+Personally for home use I set a cron running every minute, it's pretty safe because Cloudflare api can be called 1200 times in 5 minutes, for [ipfy.org](https://www.ipify.org/) you can do "millions of requests per minute" as they say; keep that in mind if you are planning to conquest the galaxy.
 
 To set a cron, type ```crontab -e``` and you'll get a file like that
 ![Image of](https://i.imgur.com/UPHlZrog.png)
