@@ -44,7 +44,7 @@ record_ip=$(jq -r '.result.content' 'temp.json')
 rm temp.json
 
 #Updating
-if [ "$last_ip" != "$record_ip" ]; then
+if [[ "$last_ip" != "$record_ip" && -n "$last_ip" && -n "$record_ip" ]]; then
   public_ip=$(curl https://api.ipify.org)
   echo $public_ip > last_ip
   curl --request PUT "https://api.cloudflare.com/client/v4/zones/$zones/dns_records/$record" \
