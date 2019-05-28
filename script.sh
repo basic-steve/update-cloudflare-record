@@ -60,10 +60,10 @@ if [[ "$last_ip" != "$record_ip" && -n "$last_ip" && -n "$record_ip" ]]; then
 
   #Checking if record was updated successfully
   if [ "$public_ip" = "$record_ip" ]; then
-    to=$(jq -r '.mail.to' $s)
+    recipient=$(jq -r '.mail.recipient' $s)
     subject=$(jq -r '.mail.subject' $s)
 
     #Replacing mail template placeholders and sending
-    sed -e "s/\${script_name}/$subject/" -e "s/\${last_ip}/$last_ip/" -e "s/\${current_ip}/$record_ip/" mail_template | ssmtp $to
+    sed -e "s/\${last_ip}/$last_ip/" -e "s/\${current_ip}/$record_ip/" mail_template | mail -s $subject $recipient
   fi
 fi
