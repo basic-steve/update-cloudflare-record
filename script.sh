@@ -34,19 +34,16 @@ zones=$(jq -r '.cloudflare.zones' $s)
 api_key=$(jq -r '.cloudflare.api_key' $s)
 record=$(jq -r '.cloudflare.record' $s)
 
-last_ip=$(cat last_ip)
-
 #Getting current record values and cleaning
 get_json_from_cloudflare
 record_type=$(jq -r '.result.type' 'temp.json')
 record_name=$(jq -r '.result.name' 'temp.json')
 record_ip=$(jq -r '.result.content' 'temp.json')
 rm temp.json
+public_ip=$(curl https://api.ipify.org)
 
 #Updating
-if [[ "$last_ip" != "$record_ip" && -n "$last_ip" && -n "$record_ip" ]]; then
-  public_ip=$(curl https://api.ipify.org)
-  echo $public_ip > last_ip
+if [[ "$public_ip" != "$record_ip" && -n "$public_ip" && -n "$record_ip" ]]; then
   curl --request PUT "https://api.cloudflare.com/client/v4/zones/$zones/dns_records/$record" \
      -H "X-Auth-Email: $email" \
      -H "X-Auth-Key: $api_key" \
@@ -64,6 +61,7 @@ if [[ "$last_ip" != "$record_ip" && -n "$last_ip" && -n "$record_ip" ]]; then
     subject=$(jq -r '.mail.subject' $s)
 
     #Replacing mail template placeholders and sending
-    sed -e "s/\${last_ip}/$last_ip/" -e "s/\${current_ip}/$record_ip/" mail_template | mail -s $subject $recipient
+    sed -e "s/\${last_ip}/$(cat last_ip)/" -e "s/\${current_ip}/$record_ip/" mail_template | mail -s $subject $recipient
+    echo $public_ip > last_ip
   fi
 fi
