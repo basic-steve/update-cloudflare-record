@@ -63,11 +63,12 @@ Api Key
 
 ### Record
 
-1) Select choosen zone
+1) Select interested zone
 2) Go under "DNS" section
-3) Below all your DNS records hit "API"
-4) Copy "List DNS Records"
-5) By using [postman](https://www.getpostman.com/apps) or whatever method you prefer, use that API call to get a full list of all records inside the specific zone
+3) Right bewlow, there is a section called "API", copy `Zone ID` key
+   ![Zone id screenshot](https://i.imgur.com/v8WCkwo.png)
+4) By using [postman](https://www.getpostman.com/apps) or whatever method you prefer, use that API call to get a full list of all records inside the specific zone: `zones/:zone_identifier/dns_records` (more info inside [cloudflare api doc](https://api.cloudflare.com/%23dns-records-for-a-zone-list-dns-records)), replace `:zone_identifier` with key copied previously
+5) Take the response and copy the interested `id`
 
 Now you can fill out the [config.json](https://github.com/CatMonster/update-cloudflare-record/blob/master/config.json), under cloudflare object you need to put all retrived data until now like in this exaple below
 
