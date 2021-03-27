@@ -3,6 +3,10 @@
 This is a simple and ugly script to update a single __cloudflare A record__ and get notified when it happens via email
 Use case: home server, raspberry pi open on network...
 
+# ⚠️ WARNING ⚠
+
+Cloudflare up to now does not support record update trough api for following extensions:  .cf, .ga, .gq, .ml, or .tk
+
 ## Suppported OS
 
 - Linux
