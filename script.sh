@@ -6,8 +6,7 @@ usage() {
 
 get_json_from_cloudflare() {
   curl --request GET "https://api.cloudflare.com/client/v4/zones/$zones/dns_records/$record" \
-    -H "X-Auth-Email: $email" \
-    -H "X-Auth-Key: $api_key" \
+    -H "Authorization: Bearer $token" \
     -H "Content-Type: application/json" > temp.json
 }
 
@@ -29,9 +28,8 @@ if [ -z "${s}" ]; then
 fi
 
 #Reading values from json config
-email=$(jq -r '.cloudflare.email' $s)
 zones=$(jq -r '.cloudflare.zones' $s)
-api_key=$(jq -r '.cloudflare.api_key' $s)
+token=$(jq -r '.cloudflare.token' $s)
 record=$(jq -r '.cloudflare.record' $s)
 
 #Getting current record values and cleaning
@@ -45,8 +43,7 @@ public_ip=$(curl https://api.ipify.org)
 #Updating
 if [[ "$public_ip" != "$record_ip" && -n "$public_ip" && -n "$record_ip" ]]; then
   curl --request PUT "https://api.cloudflare.com/client/v4/zones/$zones/dns_records/$record" \
-     -H "X-Auth-Email: $email" \
-     -H "X-Auth-Key: $api_key" \
+     -H "Authorization: Bearer $token" \
      -H "Content-Type: application/json" \
      --data '{"type":'\"$record_type\"',"name":'\"$record_name\"',"content":'\"$public_ip\"'}' > /dev/null
 

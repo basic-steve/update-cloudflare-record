@@ -1,8 +1,7 @@
 {
   "cloudflare" : {
-    "email": "",
     "zones": "",
-    "api_key": "",
+    "token": "",
     "record": ""
   },
   "mail" : {
